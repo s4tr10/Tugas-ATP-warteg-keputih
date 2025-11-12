@@ -527,7 +527,9 @@ void removeOrder(int orderIndex)
 
 void checkout()
 {
-  // IMPLEMENT CHECKOUT HERE #BASTIAN
+  // IMPLEMENT CHECKOUT HERE
+
+  cout<<"Price: "<<order;
 }
 
 void workPath()
