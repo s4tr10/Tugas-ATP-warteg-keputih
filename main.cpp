@@ -15,6 +15,18 @@ nodeMenu* headMinuman = nullptr;
 nodeMenu* headAppetizer = nullptr;
 nodeMenu* headDessert = nullptr;
 
+//Cek apakah menu sudah ada
+bool isMenuExists(nodeMenu* head, const string& menuName) {
+    nodeMenu* current = head;
+    while (current != nullptr) {
+        if (current->name == menuName) {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
 //Nampilin menu
 void showMenu(nodeMenu* head) {
     nodeMenu* current = head;
@@ -30,8 +42,26 @@ void showMenu(nodeMenu* head) {
         i++;
     }
 }
+
+//Tambah menu diawal
+void addMenuAtTheBeginning (nodeMenu*& head, string newName, int newPrice) {
+  if (isMenuExists(head, newName)) {
+      cout << "Menu item \"" << newName << "\" already exists. Cannot add duplicate." << endl;
+      return;
+  }
+  nodeMenu* newNode = new nodeMenu;
+  newNode->name = newName;
+  newNode->price = newPrice;
+  newNode->next = head;
+  head = newNode;
+}
+
 //Tambah menu diakhir
 void addMenuAtTheEnd(nodeMenu*& head, string newName, int newPrice) {
+  if (isMenuExists(head, newName)) {
+      cout << "Menu item \"" << newName << "\" already exists. Cannot add duplicate." << endl;
+      return;
+  }
   nodeMenu* newNode = new nodeMenu;
   newNode->name = newName;
   newNode->price = newPrice;
@@ -48,8 +78,70 @@ void addMenuAtTheEnd(nodeMenu*& head, string newName, int newPrice) {
   }
 }
 
+//Tambah menu di posisi tertentu
+void addMenuAtSpecificPosition(nodeMenu*& head, string newName, int newPrice, int position) {
+  if (isMenuExists(head, newName)) {
+      cout << "Menu item \"" << newName << "\" already exists. Cannot add duplicate." << endl;
+      return;
+  }
+  nodeMenu* newNode = new nodeMenu;
+  newNode->name = newName;
+  newNode->price = newPrice;
+
+  if(position == 1) {
+    newNode->next = head;
+    head = newNode;
+    return;
+  }
+
+  nodeMenu* temp = head;
+  for(int i = 1; i < position - 1 && temp != nullptr; i++) {
+    temp = temp->next;
+  }
+
+  if(temp == nullptr) {
+    cout << "Position out of bounds. Adding at the end instead." << endl;
+    delete newNode;
+    addMenuAtTheEnd(head, newName, newPrice);
+  } else {
+    newNode->next = temp->next;
+    temp->next = newNode;
+  }
+}
+
+//Hapus menu di awal
+void removeMenuAtTheBeginning(nodeMenu*& head) {
+  if(head == nullptr) {
+    cout << "Menu is already empty." << endl;
+    return;
+  }
+  nodeMenu* temp = head;
+  head = head->next;
+  delete temp;
+}
+
+//Hapus menu di akhir
+void removeMenuAtTheEnd(nodeMenu*& head) {
+  if(head == nullptr) {
+    cout << "Menu is already empty." << endl;
+    return;
+  }
+  if(head->next == nullptr) {
+    delete head;
+    head = nullptr;
+    return;
+  }
+  nodeMenu* temp = head;
+  while(temp->next->next != nullptr) {
+    temp = temp->next;
+  }
+  delete temp->next;
+  temp->next = nullptr;
+}
+
 //Deklarasi function
 void addMenuFunc();
+void removeMenuFunc();
 void custPath();
 void workPath();
 
@@ -119,7 +211,7 @@ void workPath() {
         addMenuFunc();
         break;
       case 3:
-        //Remove Menu Item function call
+        removeMenuFunc();
         break;
       case 4:
         cout << "Returning to Main Menu." << endl;
@@ -145,6 +237,11 @@ void addMenuFunc() {
   cout << "4. Dessert" << endl;
   cout << "Type option here (1/2/3/4) : ";
   cin >> category;
+
+  if (category < 1 || category > 4) {
+      cout << "Invalid category option." << endl;
+      return;
+  }
 
   cout << endl;
   cout << "Where to add the new menu item?" << endl;
@@ -187,12 +284,132 @@ void addMenuFunc() {
       }
       break;
     case 2:
-      // Sama kayak atasnya tapi pake function addMenuAtTheBeginning
-      cout << "Feature to add at the beginning is not yet implemented." << endl;
+      switch (category) {
+        case 1:
+          addMenuAtTheBeginning(headMakanan, newName, newPrice);
+          cout << "Menu item added to Makanan successfully." << endl;
+          break;
+        case 2:
+          addMenuAtTheBeginning(headMinuman, newName, newPrice);
+          cout << "Menu item added to Minuman successfully." << endl;
+          break;
+        case 3:
+          addMenuAtTheBeginning(headAppetizer, newName, newPrice);
+          cout << "Menu item added to Appetizer successfully." << endl;
+          break;
+        case 4:
+          addMenuAtTheBeginning(headDessert, newName, newPrice);
+          cout << "Menu item added to Dessert successfully." << endl;
+          break;
+        default:
+          cout << "Invalid category option." << endl;
+          break;
+      }
       break;
     case 3:
-      // Sama kayak atasnya tapi pake function addMenuAtSpecificPosition
-      cout << "Feature to add at a specific position is not yet implemented." << endl;
+      int specificPosition;
+      cout << "Enter the specific position to add the new menu item: ";
+      cin >> specificPosition;
+      switch (category) {
+        case 1:
+          addMenuAtSpecificPosition(headMakanan, newName, newPrice, specificPosition);
+          cout << "Menu item added to Makanan successfully." << endl;
+          break;
+        case 2:
+          addMenuAtSpecificPosition(headMinuman, newName, newPrice, specificPosition);
+          cout << "Menu item added to Minuman successfully." << endl;
+          break;  
+        case 3:
+          addMenuAtSpecificPosition(headAppetizer, newName, newPrice, specificPosition);
+          cout << "Menu item added to Appetizer successfully." << endl;
+          break;
+        case 4:
+          addMenuAtSpecificPosition(headDessert, newName, newPrice, specificPosition);
+          cout << "Menu item added to Dessert successfully." << endl;
+          break;
+      }
+      break;
+    default:
+      cout << "Invalid position option." << endl;
+      break;
+  }
+}
+
+void removeMenuFunc() {
+  int category;
+  int positionOption;
+
+  cout << endl;
+  cout << "Select category to remove menu item from: " << endl;
+  cout << "1. Makanan" << endl;
+  cout << "2. Minuman" << endl;
+  cout << "3. Appetizer" << endl;
+  cout << "4. Dessert" << endl;
+  cout << "Type option here (1/2/3/4) : ";
+  cin >> category;
+
+  if (category < 1 || category > 4) {
+      cout << "Invalid category option." << endl;
+      return;
+  }
+
+  cout << endl;
+  cout << "Where to remove the menu item from?" << endl;
+  cout << "1. At the beginning" << endl;
+  cout << "2. At the end" << endl;
+  cout << "3. At a specific position" << endl;
+  cout << "Type option here (1/2/3) : ";
+  cin >> positionOption;
+
+  switch (positionOption) {
+    case 1:
+    switch (category) {
+        case 1:
+          removeMenuAtTheBeginning(headMakanan);
+          cout << "Menu item removed from Makanan successfully." << endl;
+          break;
+        case 2:
+          removeMenuAtTheBeginning(headMinuman);
+          cout << "Menu item removed from Minuman successfully." << endl;
+          break;
+        case 3:
+          removeMenuAtTheBeginning(headAppetizer);
+          cout << "Menu item removed from Appetizer successfully." << endl;
+          break;
+        case 4:
+          removeMenuAtTheBeginning(headDessert);
+          cout << "Menu item removed from Dessert successfully." << endl;
+          break;
+        default:
+          cout << "Invalid category option." << endl;
+          break;
+      }
+      break;
+    case 2:
+      switch (category) {
+        case 1:
+          removeMenuAtTheEnd(headMakanan);
+          cout << "Menu item removed from Makanan successfully." << endl;
+          break;
+        case 2:
+          removeMenuAtTheEnd(headMinuman);
+          cout << "Menu item removed from Minuman successfully." << endl;
+          break;
+        case 3:
+          removeMenuAtTheEnd(headAppetizer);
+          cout << "Menu item removed from Appetizer successfully." << endl;
+          break;
+        case 4:
+          removeMenuAtTheEnd(headDessert);
+          cout << "Menu item removed from Dessert successfully." << endl;
+          break;
+        default:
+          cout << "Invalid category option." << endl;
+          break;
+      }
+      break;
+    case 3:
+      cout << "Feature to remove at a specific position is not yet implemented." << endl;
       break;
     default:
       cout << "Invalid position option." << endl;
