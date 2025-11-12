@@ -25,7 +25,7 @@ void showMenu(nodeMenu* head) {
     
     int i = 1;
     while (current != nullptr) {
-        cout << i << ". " << current->name << " - Rp" << current->price << endl;
+        cout << i << ". " << current->name << " - Rp " << current->price << endl;
         current = current->next;
         i++;
     }
@@ -56,9 +56,9 @@ void workPath();
 int main() {
   int PATH_BRANCH; //Choosing the path (worker/owner or customer)
   do { //Biar bisa balik ke menu awal terus
-    cout << "\n=========================" << endl;
-    cout << "WELCOME TO WARTEG KEPUTIH" << endl;
-    cout << "=========================\n" << endl;
+    cout << "\n=============================" << endl;
+    cout << "||WELCOME TO WARTEG KEPUTIH||" << endl;
+    cout << "=============================\n" << endl;
     cout << "Sign in as : " << endl;
     cout << "1. Worker or owner" << endl;
     cout << "2. Customer" << endl;
@@ -93,9 +93,9 @@ void workPath() {
   int option;
 
   do {
-    cout << "\n=========================" << endl;
-    cout << "WELCOME WORKER/OWNER" << endl;
-    cout << "=========================\n" << endl;
+    cout << "\n========================" << endl;
+    cout << "||WELCOME WORKER/OWNER||" << endl;
+    cout << "========================\n" << endl;
     cout << "Menu Management Options: " << endl;
     cout << "1. View Menu Items" << endl;
     cout << "2. Add Menu Item" << endl;
