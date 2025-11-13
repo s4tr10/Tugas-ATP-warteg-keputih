@@ -619,30 +619,6 @@ void addMenuFunc()
     switch (category)
     {
     case 1:
-      addMenuAtTheBeginning(headMakanan, newName, newPrice);
-      cout << "Menu item added to Makanan successfully." << endl;
-      break;
-    case 2:
-      addMenuAtTheBeginning(headMinuman, newName, newPrice);
-      cout << "Menu item added to Minuman successfully." << endl;
-      break;
-    case 3:
-      addMenuAtTheBeginning(headAppetizer, newName, newPrice);
-      cout << "Menu item added to Appetizer successfully." << endl;
-      break;
-    case 4:
-      addMenuAtTheBeginning(headDessert, newName, newPrice);
-      cout << "Menu item added to Dessert successfully." << endl;
-      break;
-    default:
-      cout << "Invalid category option." << endl;
-      break;
-    }
-    break;
-  case 2:
-    switch (category)
-    {
-    case 1:
       addMenuAtTheEnd(headMakanan, newName, newPrice);
       cout << "Menu item added to Makanan successfully." << endl;
       break;
@@ -656,6 +632,30 @@ void addMenuFunc()
       break;
     case 4:
       addMenuAtTheEnd(headDessert, newName, newPrice);
+      cout << "Menu item added to Dessert successfully." << endl;
+      break;
+    default:
+      cout << "Invalid category option." << endl;
+      break;
+    }
+    break;
+  case 2:
+    switch (category)
+    {
+    case 1:
+      addMenuAtTheBeginning(headMakanan, newName, newPrice);
+      cout << "Menu item added to Makanan successfully." << endl;
+      break;
+    case 2:
+      addMenuAtTheBeginning(headMinuman, newName, newPrice);
+      cout << "Menu item added to Minuman successfully." << endl;
+      break;
+    case 3:
+      addMenuAtTheBeginning(headAppetizer, newName, newPrice);
+      cout << "Menu item added to Appetizer successfully." << endl;
+      break;
+    case 4:
+      addMenuAtTheBeginning(headDessert, newName, newPrice);
       cout << "Menu item added to Dessert successfully." << endl;
       break;
     default:
