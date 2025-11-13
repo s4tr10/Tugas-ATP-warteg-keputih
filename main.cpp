@@ -520,7 +520,34 @@ void removeOrder(int orderIndex)
 
 void checkout()
 {
-  // IMPLEMENT CHECKOUT HERE #BASTIAN
+  if (headPesanan == nullptr)
+  {
+    cout << "No orders to checkout." << endl;
+    return;
+  }
+
+  int total = 0;
+  nodeOrder *current = headPesanan;
+
+  cout << "\n=== CHECKOUT ===" << endl;
+  while (current != nullptr)
+  {
+    cout << current->menuItem->name << " - Rp " << current->menuItem->price << endl;
+    total += current->menuItem->price;
+    current = current->next;
+  }
+  cout << "Total Amount: Rp " << total << endl;
+
+  // Clear orders after checkout
+  while (headPesanan != nullptr)
+  {
+    nodeOrder *temp = headPesanan;
+    headPesanan = headPesanan->next;
+    delete temp;
+  }
+
+  cout << "Thank you for your order!" << endl;
+  exit(0);
 }
 
 void workPath()
