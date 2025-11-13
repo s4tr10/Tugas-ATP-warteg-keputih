@@ -38,59 +38,6 @@ bool isMenuExists(nodeMenu *head, const string &menuName)
   return false;
 }
 
-// Nampilin menu
-void showMenu(nodeMenu *head)
-{
-  nodeMenu *current = head;
-  if (current == nullptr)
-  {
-    cout << "(Kosong)" << endl;
-    return;
-  }
-
-  int i = 1;
-  while (current != nullptr)
-  {
-    cout << i << ". " << current->name << " - Rp " << current->price << endl;
-    current = current->next;
-    i++;
-  }
-}
-
-// Tambah menu diawal
-void addMenuAtTheBeginning(nodeMenu *&head, string newName, int newPrice)
-{
-  if (isMenuExists(head, newName))
-  {
-    cout << "Menu item \"" << newName << "\" already exists. Cannot add duplicate." << endl;
-    return;
-  }
-  nodeMenu *newNode = new nodeMenu;
-  newNode->name = newName;
-  newNode->price = newPrice;
-  newNode->next = head;
-  head = newNode;
-}
-
-// Nampilin menu
-void showMenu(nodeMenu *head)
-{
-  nodeMenu *current = head;
-  if (current == nullptr)
-  {
-    cout << "(Kosong)" << endl;
-    return;
-  }
-
-  int i = 1;
-  while (current != nullptr)
-  {
-    cout << i << ". " << current->name << " - Rp " << current->price << endl;
-    current = current->next;
-    i++;
-  }
-}
-
 // Tambah menu diawal
 void addMenuAtTheBeginning(nodeMenu *&head, string newName, int newPrice)
 {
