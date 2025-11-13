@@ -17,6 +17,13 @@ struct nodeOrder
   nodeOrder *next;
 };
 
+// Head pointer untuk tiap kategori menu
+nodeMenu *headMakanan = nullptr;
+nodeMenu *headMinuman = nullptr;
+nodeMenu *headAppetizer = nullptr;
+nodeMenu *headDessert = nullptr;
+nodeOrder *headPesanan = nullptr;
+
 <<<<<<< HEAD
 //Cek apakah menu sudah ada
 bool isMenuExists(nodeMenu* head, const string& menuName) {
@@ -66,69 +73,15 @@ void addMenuAtTheEnd(nodeMenu*& head, string newName, int newPrice) {
       return;
   }
   nodeMenu* newNode = new nodeMenu;
-=======
-// Head pointer untuk tiap kategori menu
-nodeMenu *headMakanan = nullptr;
-nodeMenu *headMinuman = nullptr;
-nodeMenu *headAppetizer = nullptr;
-nodeMenu *headDessert = nullptr;
-nodeOrder *headPesanan = nullptr;
-
-// Nampilin menu
-void showMenu(nodeMenu *head)
-{
-  nodeMenu *current = head;
-  if (current == nullptr)
-  {
-    cout << "(Kosong)" << endl;
-    return;
-  }
-
-  int i = 1;
-  while (current != nullptr)
-  {
-    cout << i << ". " << current->name << " - Rp " << current->price << endl;
-    current = current->next;
-    i++;
-  }
-}
-
-void displayOrders(nodeOrder *head)
-{
-  nodeOrder *current = head;
-  if (current == nullptr)
-  {
-    cout << "(No orders placed)" << endl;
-    return;
-  }
-
-  int i = 1;
-  while (current != nullptr)
-  {
-    cout << i << ". " << current->menuItem->name << " - Rp " << current->menuItem->price << endl;
-    current = current->next;
-    i++;
-  }
-}
-
-// Tambah menu diakhir
-void addMenuAtTheEnd(nodeMenu *&head, string newName, int newPrice)
-{
-  nodeMenu *newNode = new nodeMenu;
->>>>>>> f3ea8406dc86b2284342626227b108012cf23f9c
   newNode->name = newName;
   newNode->price = newPrice;
   newNode->next = nullptr;
 
-  if (head == nullptr)
-  {
+  if (head == nullptr) {
     head = newNode;
-  }
-  else
-  {
-    nodeMenu *temp = head;
-    while (temp->next != nullptr)
-    {
+  } else {
+    nodeMenu* temp = head;
+    while (temp->next != nullptr) {
       temp = temp->next;
     }
     temp->next = newNode;
@@ -222,8 +175,6 @@ void removeMenuAtSpecificPosition(nodeMenu*& head, int position) {
   delete nodeToDelete;
 }
 
-//Deklarasi function
-=======
 // Deklarasi function
 >>>>>>> f3ea8406dc86b2284342626227b108012cf23f9c
 void addMenuFunc();
@@ -548,7 +499,6 @@ void workPath()
     cout << "Type option here (1/2/3/4) : ";
     cin >> option;
 
-<<<<<<< HEAD
     switch (option) {
       case 1:
         cout << "\n=== DAFTAR MAKANAN ===" << endl;
@@ -572,38 +522,11 @@ void workPath()
       default:
         cout << "Invalid option. Please choose between 1-4." << endl;
         break;
-=======
-    switch (option)
-    {
-    case 1:
-      cout << "\n=== DAFTAR MAKANAN ===" << endl;
-      showMenu(headMakanan);
-      cout << "\n=== DAFTAR MINUMAN ===" << endl;
-      showMenu(headMinuman);
-      cout << "\n=== DAFTAR APPETIZER ===" << endl;
-      showMenu(headAppetizer);
-      cout << "\n=== DAFTAR DESSERT ===" << endl;
-      showMenu(headDessert);
-      break;
-    case 2:
-      addMenuFunc();
-      break;
-    case 3:
-      // Remove Menu Item function call
-      break;
-    case 4:
-      cout << "Returning to Main Menu." << endl;
-      break;
-    default:
-      cout << "Invalid option. Please choose between 1-4." << endl;
-      break;
->>>>>>> f3ea8406dc86b2284342626227b108012cf23f9c
-    }
+    } 
   } while (option != 4);
 }
-
-void addMenuFunc()
-{
+    
+void addMenuFunc(){
   int category;
   string newName;
   int newPrice;
