@@ -623,12 +623,6 @@ void addMenuFunc()
     return;
   }
 
-  if (category < 1 || category > 4)
-  {
-    cout << "Invalid category option." << endl;
-    return;
-  }
-
   cout << endl;
   cout << "Where to add the new menu item?" << endl;
   cout << "1. At the end" << endl;
